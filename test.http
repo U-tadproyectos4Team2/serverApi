@@ -1,0 +1,53 @@
+### Health Check
+GET http://localhost:3000/health
+
+###
+
+### Transcribe Audio - English (M4A)
+POST http://localhost:3000/api/transcribe
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="language"
+
+en
+------WebKitFormBoundary
+Content-Disposition: form-data; name="audio"; filename="sampleEN.m4a"
+Content-Type: audio/mp4
+
+< ./temp/sampleEN.m4a
+------WebKitFormBoundary--
+
+###
+
+### Transcribe Audio - Spanish (M4A)
+POST http://localhost:3000/api/transcribe
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="language"
+
+es
+------WebKitFormBoundary
+Content-Disposition: form-data; name="audio"; filename="sampleES.m4a"
+Content-Type: audio/mp4
+
+< ./temp/sampleES.m4a
+------WebKitFormBoundary--
+
+###
+
+### Get Session by ID (replace with actual session ID from response)
+GET http://localhost:3000/api/session/5342ffba-94c7-4bdf-99c2-308de0b572bd
+
+###
+
+### List Sessions
+GET http://localhost:3000/api/sessions?limit=10
+
+###
+
+### Delete Session (replace with actual session ID)
+DELETE http://localhost:3000/api/session/your-session-id-here
+
+###
