@@ -1,0 +1,67 @@
+@baseUrl = http://localhost:3000
+@authToken = Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjM4MDI5MzRmZTBlZWM0NmE1ZWQwMDA2ZDE0YTFiYWIwMWUzNDUwODMiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiw4FsdmFybyBWw6F6cXVleiIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9wcm80ZGIiLCJhdWQiOiJwcm80ZGIiLCJhdXRoX3RpbWUiOjE3NjI2MDYwMjEsInVzZXJfaWQiOiIwWWNybHJHREFqT09IZGx3QXBoRzlxSnpsUTEyIiwic3ViIjoiMFljcmxyR0RBak9PSGRsd0FwaEc5cUp6bFExMiIsImlhdCI6MTc2MjYwNjAyMSwiZXhwIjoxNzYyNjA5NjIxLCJlbWFpbCI6ImFsdmFyby52YXpxdWV6LjE3MTZAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFsdmFyby52YXpxdWV6LjE3MTZAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.KRLxqpwoooQJeBJ61GyE0W51mmsyMh_OheUGAOiP_JTlm_8lafVDj7rK8lDpcqYCY1s8TFhVrc9WHSHpL-_37kpAS-RrOoqxTrdMfYSUKsszzVkjK0A1ou2Z1AvaAF2oy2i8Vn_RmFC9jJpAFujtOKSPFSB0SEV5Av8au-vZ4VdjbFj0keGlQtttWCMfHtB5YkI5WAdaTfNRJYeJGD-LxK6o99Gq_77t4-0bKK9HfkJQNlNpQtPfT7ZNhzkZacIuHIm9hJMdVIKeeTD1rZ6QMsjiTdnSvFZ4kN4Q6ssdAcngfgKCywxpK5HQ1TkD46KJqVbDV8xbJV3MTuqzGaJ5eg
+@sessionId = ab170a12-8696-4e6a-96c4-6d453ec242e6
+
+### Health Check
+GET {{baseUrl}}/health
+
+### (SESSIONS) Crear nueva sesión (Transcribir ES)
+# NECESITA TOKEN
+# Esta respuesta te dará un "sessionId". la variable @sessionId
+POST {{baseUrl}}/api/sessions
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+Authorization: {{authToken}}
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="language"
+
+es
+------WebKitFormBoundary
+Content-Disposition: form-data; name="audio"; filename="sampleES.m4a"
+Content-Type: audio/mp4
+
+< ./temp/sampleES.m4a
+------WebKitFormBoundary--
+
+###
+### (SESSIONS) Crear nueva sesión (Transcribir EN)
+# NECESITA TOKEN
+POST {{baseUrl}}/api/sessions
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+Authorization: {{authToken}}
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="language"
+
+en
+------WebKitFormBoundary
+Content-Disposition: form-data; name="audio"; filename="sampleEN.m4a"
+Content-Type: audio/mp4
+
+< ./temp/sampleEN.m4a
+------WebKitFormBoundary--
+
+###
+### (SESSIONS) Listar todas las sesiones del usuario
+# NECESITA TOKEN
+GET {{baseUrl}}/api/sessions?limit=5
+Authorization: {{authToken}}
+
+###
+### (SESSIONS) Obtener detalles de una sesión específica
+# NECESITA TOKEN (y @sessionId)
+GET {{baseUrl}}/api/sessions/{{sessionId}}
+Authorization: {{authToken}}
+
+###
+### (SESSIONS) Obtener audio (Debe fallar con 501)
+# Esta ruta está deshabilitada (porque no usamos Storage)
+# Debería devolver un error 501 "Not Implemented".
+GET {{baseUrl}}/api/sessions/{{sessionId}}/audio
+Authorization: {{authToken}}
+
+###
+### (SESSIONS) Borrar una sesión
+# NECESITA TOKEN (y @sessionId)
+DELETE {{baseUrl}}/api/sessions/{{sessionId}}
+Authorization: {{authToken}}

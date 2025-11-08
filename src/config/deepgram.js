@@ -1,10 +1,8 @@
 require('dotenv').config();
+
 const deepgramConfig = {
     apiKey: process.env.DEEPGRAM_API_KEY,
-    baseUrl: 'https://api.deepgram.com/v1',
-
-    model: process.env.DEEPGRAM_MODEL || 'base',
-
+    
     defaultParamsES: {
         model: process.env.DEEPGRAM_MODEL || 'base',
         language: 'es',
@@ -27,7 +25,9 @@ const deepgramConfig = {
 };
 
 const validateConfig = () => {
-    if (!deepgramConfig.apiKey) throw new Error('DEEPGRAM_API_KEY not found in environment variables');
+    if (!deepgramConfig.apiKey) {
+        throw new Error('DEEPGRAM_API_KEY not found in environment variables');
+    }
     console.log('Deepgram config validated');
 };
 

@@ -5,13 +5,17 @@ const initializeFirebase = () => {
     try {
         const serviceAccountPath = path.join(__dirname, '../../firebaseKey.json');
         const serviceAccount = require(serviceAccountPath);
-        admin.initializeApp({credential: admin.credential.cert(serviceAccount)});
+        
+        admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount),
+            storageBucket: process.env.FIREBASE_STORAGE_BUCKET
+        });
 
-    console.log('Firebase initialized successfully');
-    return admin.firestore();
+        console.log('Firebase initialized successfully');
+        return admin.firestore();
     
     } catch (error) {
-        console.error('Error:', error.message);
+        console.error('Error initializing Firebase:', error.message);
         process.exit(1);
     }
 };

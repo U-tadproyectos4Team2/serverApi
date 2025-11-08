@@ -1,5 +1,4 @@
 const { createClient } = require('@deepgram/sdk');
-const fs = require('fs');
 const { deepgramConfig } = require('../config/deepgram');
 
 class DeepgramService {
@@ -7,16 +6,14 @@ class DeepgramService {
         this.client = createClient(deepgramConfig.apiKey);
     }
 
-    async transcribeAudio(filepath, language = 'en') {
+    async transcribeAudio(audioBuffer, language = 'en') {
         const params = language === 'es' 
             ? deepgramConfig.defaultParamsES 
             : deepgramConfig.defaultParamsEN;
 
-        const audioBuffer = fs.readFileSync(filepath);
-
         try {
             const { result, error } = await this.client.listen.prerecorded.transcribeFile(
-                audioBuffer,
+                audioBuffer, // Usamos el buffer directamente
                 {
                     model: params.model,
                     language: params.language,

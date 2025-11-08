@@ -1,18 +1,19 @@
 {
-  "name": "vr-speech-server",
+  "name": "vr-speech-server-robust",
   "version": "1.0.0",
-  "description": "Audio transcription server with Deepgram, filler word detection and pause analysis",
+  "description": "Servidor del proyecto de TEAM 2 de proyectos 4 mencion grafica 2024-2025",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "dev": "nodemon src/server.js"
   },
   "keywords": [
     "deepgram",
     "transcription",
-    "speech-analysis"
+    "speech-analysis",
+    "firebase",
+    "vr",
+    "unity"
   ],
   "author": "",
   "license": "ISC",
@@ -26,8 +27,6 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "jest": "^29.7.0",
-    "nodemon": "^3.0.1",
-    "supertest": "^6.3.3"
+    "nodemon": "^3.0.1"
   }
 }

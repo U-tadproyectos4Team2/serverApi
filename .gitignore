@@ -1,9 +1,11 @@
 node_modules/
+
 .env
+
 firebaseKey.json
-temp/*.wav
-temp/*.mp3
+
 logs/*.log
+
 .DS_Store
 Thumbs.db
 .vscode/
